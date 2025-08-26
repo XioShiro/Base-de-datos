@@ -1,0 +1,16 @@
+NNER JOIN
+La cláusula Inner Join compara cada línea de tabla A con las líneas de tabla B para encontrar todos los pares de líneas que satisfacen la condición de junción. Si la condición de junción fuera evaluada como TRUE, los valores de la columna de las líneas correspondientes de las tablas A y B serán combinadas en una nueva línea e incluidos en el conjunto de resultados.
+LEFT JOIN
+Retorna todos los registros de la tabla izquierda y los registros correspondientes de la tabla derecha.
+Para cada línea de la tabla A, la consulta la compara con todas las líneas de la tabla B. 
+Si una línea de la tabla “izquierda” A no tuviera ninguna línea correspondiente de la tabla “derecha” B, la consulta irá combinar los valores de la columna de la línea de la tabla “izquierda” A con NULL para cada valor de la columna de la tabla de la “derecha” B que no satisface la condición de junto (FALSE).
+En resumen, la cláusula LEFT JOIN retorna todas las líneas de la tabla “izquierda” A y las líneas correspondientes o valores NULL de la tabla “izquierda” A.
+RIGHT JOIN
+Retorna todos los registros de la tabla derecha y los registros correspondientes de la tabla izquierda.
+Retorna un conjunto de resultados que incluye todas las líneas de la tabla “derecha” B, con o sin líneas correspondientes en la tabla “izquierda” A. Se una línea en la tabla derecha B no tuviera ninguna línea correspondiente de la tabla “izquierda” A, la columna de la tabla “izquierda” A en el conjunto de resultados será nula igualmente a lo que acontece en el LEFT JOIN.
+FULL JOIN
+Retorna todos los registros cuando hubiera una correspondencia en la tabla izquierda o derecha.
+La cláusula FULL JOIN retorna todas las líneas de las tablas unidas, correspondidas o no, o sea, se puede decir que FULL JOIN combina las funciones de la LEFT JOIN y de RIGHT JOIN. FULL JOIN es un tipo de junción externa, por eso también es llamada junción externa completa.
+Cuando no existen líneas correspondientes para la línea de la tabla izquierda, las columnas de la tabla derecha serán nulas. De la misma forma, cuando no existen líneas correspondientes para la línea de la tabla derecha, la columna da tabla izquierda será nula.
+CROSS JOIN
+La cláusula CROSS JOIN retorna todas las líneas de las tablas por cruzamiento, o sea, para cada línea de la tabla izquierda queremos todas las líneas de la tabla derecha o viceversa. También es llamado de producto cartesiano entre dos tablas. Pero, para eso es necesario que ambas tengan el campo en común, para que la conexión exista entre las dos tablas.
