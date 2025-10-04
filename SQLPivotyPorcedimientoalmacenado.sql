@@ -1,0 +1,88 @@
+USE prueb;
+GO
+IF OBJECT_ID('Matriculas','U') IS NOT NULL DROP TABLE Matriculas;
+IF OBJECT_ID ('Cursos', 'U') IS NOT NULL DROP TABLE Cursos;
+IF OBJECT_ID ('Alumnos', 'U') IS NOT NULL DROP TABLE Alumnos;
+IF OBJECT_ID ('Profesores', 'U') IS NOT NULL DROP TABLE Profesores;
+
+
+CREATE TABLE Profesores (
+ProfesorID INT PRIMARY KEY IDENTITY (1,1),
+Nombre NVARCHAR (100) NOT NULL 
+);
+
+CREATE TABLE Alumnos (
+AlumnoID INT PRIMARY KEY IDENTITY (1,1), 
+Nombre NVARCHAR (100) NOT NULL
+);
+
+CREATE TABLE Cursos (
+CursoID INT PRIMARY KEY IDENTITY (1,1),
+Nombre NVARCHAR(100) NOT NULL, 
+ProfesorID INT NOT NULL, 
+FOREIGN KEY (ProfesorID) references Profesores(ProfesorID)
+);
+
+CREATE TABLE Matriculas (
+    MatriculaID INT PRIMARY KEY IDENTITY(1,1),
+    AlumnoID INT NOT NULL,
+    CursoID INT NOT NULL,
+    Fecha DATE DEFAULT GETDATE(),
+    FOREIGN KEY (AlumnoID) REFERENCES Alumnos(AlumnoID),
+    FOREIGN KEY (CursoID) REFERENCES Cursos(CursoID)
+);
+
+
+INSERT INTO Profesores (Nombre) VALUES ('Rodrigo Ramirez'), ('Juana Flores'), ('Alonso Chávez'), ('Carlos Torres'), ('David Gonzales'), ('Marisol Martines'), ('Kevin Hernández'), ('Mariano Dominguez');
+INSERT INTO Alumnos (Nombre)    VALUES ('Romina Quispe'), ('Brenda Mamani'), ('Angel Sanchez'), ('Miranda Lopez'), ('Jorge Salazar'), ('Fabiano Meza'), ('Lorena Zeballos');
+INSERT INTO Cursos (Nombre, ProfesorID) VALUES ('InglesI',2), ('Matemática',1), ('Civica',3),  ('Historia', 4), ('Calculo I', 5),('Calculo II',8 ), ('Mecanica', 2), ('InglesII', 7), ('Ingles III', 6);
+INSERT INTO Matriculas (AlumnoID, CursoID) VALUES (1,1), (2,2), (3,3), (4,4), (5,5); 
+
+
+
+-- PIVOT por Curso 
+
+SELECT
+  ISNULL([InglesI],0)       AS InglesI,
+  ISNULL([Matemática],0)    AS Matematica,
+  ISNULL([Civica],0)        AS Civica,
+  ISNULL([Historia],0)      AS Historia,
+  ISNULL([Calculo I],0)     AS Calculo_I,
+  ISNULL([Calculo II],0)    AS Calculo_II,
+  ISNULL([Mecanica],0)      AS Mecanica,
+  ISNULL([InglesII],0)      AS InglesII,
+  ISNULL([Ingles III],0)    AS Ingles_III
+FROM (
+  SELECT c.Nombre AS Curso, m.MatriculaID
+  FROM Matriculas m
+  JOIN Cursos c ON m.CursoID = c.CursoID
+) AS src
+PIVOT (
+  COUNT(MatriculaID) FOR Curso IN (
+    [InglesI],[Matemática],[Civica],[Historia],[Calculo I],[Calculo II],[Mecanica],[InglesII],[Ingles III]
+  )
+) AS pvt;
+GO
+
+
+
+IF OBJECT_ID('sp_InsertMatricula', 'P') IS NOT NULL
+    DROP PROCEDURE sp_InsertMatricula;
+GO
+
+CREATE PROCEDURE sp_InsertMatricula
+    @AlumnoID INT,
+    @CursoID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Matriculas (AlumnoID, CursoID)
+    VALUES (@AlumnoID, @CursoID);
+
+    -- Devuelve el ID generado
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NewMatriculaID;
+END;
+GO
+EXEC dbo.sp_InsertMatricula @AlumnoID = 1, @CursoID = 1;
+EXEC dbo.sp_InsertMatricula 2, 3;
