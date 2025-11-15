@@ -1,4 +1,4 @@
-NNER JOIN
+NNER JOIN 
 La cláusula Inner Join compara cada línea de tabla A con las líneas de tabla B para encontrar todos los pares de líneas que satisfacen la condición de junción. Si la condición de junción fuera evaluada como TRUE, los valores de la columna de las líneas correspondientes de las tablas A y B serán combinadas en una nueva línea e incluidos en el conjunto de resultados.
 LEFT JOIN
 Retorna todos los registros de la tabla izquierda y los registros correspondientes de la tabla derecha.
@@ -13,4 +13,5 @@ Retorna todos los registros cuando hubiera una correspondencia en la tabla izqui
 La cláusula FULL JOIN retorna todas las líneas de las tablas unidas, correspondidas o no, o sea, se puede decir que FULL JOIN combina las funciones de la LEFT JOIN y de RIGHT JOIN. FULL JOIN es un tipo de junción externa, por eso también es llamada junción externa completa.
 Cuando no existen líneas correspondientes para la línea de la tabla izquierda, las columnas de la tabla derecha serán nulas. De la misma forma, cuando no existen líneas correspondientes para la línea de la tabla derecha, la columna da tabla izquierda será nula.
 CROSS JOIN
-La cláusula CROSS JOIN retorna todas las líneas de las tablas por cruzamiento, o sea, para cada línea de la tabla izquierda queremos todas las líneas de la tabla derecha o viceversa. También es llamado de producto cartesiano entre dos tablas. Pero, para eso es necesario que ambas tengan el campo en común, para que la conexión exista entre las dos tablas.
+La cláusula CROSS JOIN retorna todas las líneas de las tablas por cruzamiento, o sea, para cada línea de la tabla izquierda queremos todas las líneas de la tabla derecha o viceversa. También es llamado de producto cartesiano entre dos tablas. Pero, para eso es necesario que ambas tengan el campo en común, para que la conexión exista entre las dos tablas
+
